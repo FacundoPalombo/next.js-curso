@@ -24,7 +24,7 @@ export default class channel extends Component {
     return (
       <div>
         <header className="banner">
-          <Navigation path="/channels" />
+          <Navigation path="/" className="navigation"/>
           <h2>{channel.title}</h2>
         </header>
         <section>
@@ -44,7 +44,6 @@ export default class channel extends Component {
             header {
               color: #fff;
               background: #8756ca;
-              padding: 15px;
               text-align: center;
             }
 
@@ -85,6 +84,10 @@ export default class channel extends Component {
               font-weight: 600;
               margin: 0;
               text-align: center;
+              font-family: Helvetica, system-ui;
+              display: block;
+              clear:both;
+              text-shadow: 0px 0px 4px rgba(0,0,0,0.7);
             }
 
             .podcast {
