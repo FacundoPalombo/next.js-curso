@@ -7,12 +7,27 @@ export default class PodcastList extends Component {
       let { clip } = this.props;
     return (
       <div>
-
+          <section>
+              <img src={clip.user.urls.image} alt=""/>
+          </section>
         <footer>
         <PlayingBar media={clip}/>
         </footer>
        <style jsx>
           {`
+                section{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 2rem;
+                    box-shadow: 0px 0px 4px rgba(177,154,210,.85);
+                    background: #3E364A;
+                }
+                section img {
+                    max-width: 65vw;
+                    min-width: 65vw;
+                    height: auto;
+                }
                 footer{
                     position: relative;
                     bottom: 0px;
@@ -27,47 +42,6 @@ export default class PodcastList extends Component {
                     background: #8756ca;
                     color: white;
                   }
-                  picture {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    flex: 1 1;
-                    flex-direction: column;
-                    width: auto;
-                    padding: 10%;
-                  }
-                  picture div {
-                    width: 100%;
-                    height: 100%;
-                    background-position: 50% 50%;
-                    background-size: contain;
-                    background-repeat: no-repeat;
-                  }
-                  .player {
-                    padding: 30px;
-                    background: rgba(0,0,0,0.3);
-                    text-align: center;
-                  }
-                  h3 {
-                    margin: 0;
-                  }
-                  h6 {
-                    margin: 0;
-                    margin-top: 1em;
-                  }
-                  audio {
-                    margin-top: 2em;
-                    width: 100%;
-                  }
-          
-                  .modal {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    z-index: 99999;
-          
           `}
         </style> 
       </div>

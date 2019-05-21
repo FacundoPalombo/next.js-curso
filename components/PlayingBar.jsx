@@ -1,39 +1,64 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export default class PlayingBar extends Component {
   render() {
-      let { media } = this.props;
+    let { media } = this.props;
     return (
-      <div>
-          <div className="tape">
-            <img src={media.urls.image} alt={`${media.title} tape`}/>
-          </div>
-          <div className="progressBar">
-              <audio src={media.urls.high_mp3}></audio>
-          </div>
-          <style jsx>
-              {`
-              div{
-                  display: grid;
-                  grid-template-columns: 4rem 1fr;
-                  grid-template-rows: 25% 35% 1fr;
-                  width: 100%;
-                  min-height: 10vh;
-              }
-              .tape {
-                  grid-area: 1/1/3/2;
-                  background: yellow;
-              }
-              .tape img {
-                  
-              }
-              .progressBar{
-                  grid-area: 1/2/3/3;
-                  background:lightblue;
-              }
-              `}
-          </style>
+      <div className="playing">
+        <div className="tape">
+          <img src={ media.user.urls.image || media.channel.urls.logo_image.original} alt={`${media.title} tape`} />
+        </div>
+        <div className="progressBar">
+            <h5>{media.title}</h5>
+          <audio controls>
+            <source src={media.urls.high_mp3} type="audio/mp3" />
+          </audio>
+        <div className="buttons">
+            asdads
+        </div>
+        </div>
+        <style jsx>
+          {`
+            .playing{
+                display: grid;
+                width: 100%;
+                clear: both;
+                position: relative;
+                bottom: 0px;
+                background: #3E364A;
+                grid-template-columns: 30vw 1fr;
+                grid-template-areas: "tape progress"
+            }
+            .tape{
+                grid-area: tape;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: .80em;
+            }
+            .tape img {
+                width: 100%;
+                height: auto;
+                align-self: center;
+                justify-self: center;
+            }
+            .progressBar{
+                grid-area: progress;
+                grid-template-rows: 20% 35% 1fr;
+                grid-template-areas: "title" "audio" "buttons";
+            }
+            h5{
+                grid-area: title;
+            }
+            audio{
+                grid-area: audio;
+            }
+            .buttons{
+                grid-area: buttons;
+            }
+          `}
+        </style>
       </div>
-    )
+    );
   }
 }

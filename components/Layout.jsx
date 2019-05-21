@@ -6,7 +6,7 @@ export default class Layout extends Component {
   render() {
       const { children, title } = this.props;
     return (
-      <>
+      <div>
       <Head>
           <title>{ title }</title>
       </Head>
@@ -34,6 +34,9 @@ export default class Layout extends Component {
             header a:focus {
               color: #fff;
             }
+            div{
+              height: auto;
+            }
           `}
         </style>
         <style jsx global>
@@ -50,7 +53,7 @@ export default class Layout extends Component {
             }
           `}
         </style>
-      </>
+      </div>
     );
   }
 }

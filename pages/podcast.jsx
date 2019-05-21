@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Link from "next/link";
 import Navigation from "../components/Navigation";
 import PodcastList from "../components/PodcastList";
+import Layout from "../components/Layout";
 export default class podcast extends Component {
   static async getInitialProps({ query }) {
     let idClip = query.id;
@@ -15,11 +16,13 @@ export default class podcast extends Component {
   }
   render() {
     let { audio_clip } = this.props;
-    console.log(audio_clip);
+    console.dir(audio_clip);
     return (
       <>
-        <Navigation path={`/channel?id=${audio_clip.channel.id}`} />
-        <PodcastList clip={audio_clip}/>
+          <Navigation path={`/channel?id=${audio_clip.channel.id}`} />
+        <Layout title={audio_clip.title}>
+          <PodcastList clip={audio_clip} />
+        </Layout>
       </>
     );
   }
