@@ -1,30 +1,54 @@
 import React, { Component } from "react";
 import Link from "next/link";
 import Navigation from "../components/Navigation";
+import Error from "./_error";
 export default class channel extends Component {
-  static async getInitialProps({ query }) {
-    let idChannel = query.id;
-    let [reqChannel, reqClips] = await Promise.all([
-      fetch(`http://api.audioboom.com/channels/${idChannel}`),
-      fetch(`http://api.audioboom.com/channels/${idChannel}/audio_clips/`)
-    ]);
+  static async getInitialProps({ query, res }) {
+    try {
+      let idChannel = query.id;
+      let [reqChannel, reqClips] = await Promise.all([
+        fetch(`http://api.audioboom.com/channels/${idChannel}`),
+        fetch(`http://api.audioboom.com/channels/${idChannel}/audio_clips/`)
+      ]);
 
-    const {
-      body: { channel }
-    } = await reqChannel.json();
-    const {
-      body: { audio_clips }
-    } = await reqClips.json();
+      if (reqChannel.status >= 400) {
+        res.statusCode = reqChannel.status;
+        return {
+          channel: null,
+          audio_clips: null,
+          statusCode: reqChannel.status
+        };
+      }
+      if (reqClips.status >= 400) {
+        res.statusCode = reqClips.status;
+        return {
+          channel: null,
+          audio_clips: null,
+          statusCode: reqClips.status
+        };
+      }
 
-    return { channel, audio_clips };
+      let {
+        body: { channel }
+      } = await reqChannel.json();
+      let {
+        body: { audio_clips }
+      } = await reqClips.json();
+      return { channel, audio_clips, statusCode: 200 };
+    } catch (error) {
+      return { channel: null, audio_clips: null, statusCode: 503 };
+    }
   }
   render() {
     let defaultBanner = "../static/defaultbanner.png";
-    let { channel, audio_clips } = this.props;
+    let { channel, audio_clips, statusCode } = this.props;
+    if (statusCode !== 200) {
+      return <Error statusCode={statusCode} />;
+    }
     return (
       <div>
         <header className="banner">
-          <Navigation path="/" className="navigation"/>
+          <Navigation path="/" className="navigation" />
           <h2>{channel.title}</h2>
         </header>
         <section>
@@ -86,8 +110,8 @@ export default class channel extends Component {
               text-align: center;
               font-family: Helvetica, system-ui;
               display: block;
-              clear:both;
-              text-shadow: 0px 0px 4px rgba(0,0,0,0.7);
+              clear: both;
+              text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.7);
             }
 
             .podcast {

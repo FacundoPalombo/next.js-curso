@@ -48,8 +48,13 @@ export default class Layout extends Component {
             }
             body {
               margin: 0;
-              font-family: system-ui;
+              font-family: DidactGothic-Regular, Helvetica, system-ui;
               background: white;
+            }
+            #__next{
+              width: 100vw;
+              height: 100vh;
+              display: block;
             }
           `}
         </style>
