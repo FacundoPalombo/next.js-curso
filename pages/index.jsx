@@ -28,7 +28,7 @@ export default class index extends Component {
       return <Error statusCode={statusCode} />;
     }
     return (
-      <Layout title="Podcasts">
+      <Layout title="Podcasts" titleHead="Podcasts">
         <ChannelGrid channels={channels} />
       </Layout>
     );

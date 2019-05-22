@@ -12,7 +12,7 @@ class Error extends React.Component {
     let { statusCode } = this.props;
     return (
       <>
-        <Layout title="Oh no :c">
+        <Layout title="Oh no :c" titleHead={`Error ${statusCode}`}>
         <Navigation path="/" />
           {statusCode === 404 ? (
             <div className="message">

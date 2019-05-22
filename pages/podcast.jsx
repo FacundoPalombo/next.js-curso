@@ -33,7 +33,7 @@ export default class podcast extends Component {
     return (
       <>
         <Navigation path={`/channel?id=${audio_clip.channel.id}`} />
-        <Layout title={audio_clip.title}>
+        <Layout title={audio_clip.title} titleHead={audio_clip.title}>
           <PodcastList clip={audio_clip} />
         </Layout>
       </>

@@ -4,15 +4,15 @@ import Head from "next/head";
 
 export default class Layout extends Component {
   render() {
-      const { children, title } = this.props;
+      const { children, title, titleHead } = this.props;
     return (
       <div>
       <Head>
-          <title>{ title }</title>
+          <title>{ titleHead.lenght < 15 ? titleHead : `${titleHead.substring(0,15)}...` }</title>
       </Head>
         <header>
           <Link href="/">
-            <a>{ title }</a>
+            <a>{ title.lenght > 35 ? `${title.substring(0,35)}...` : title }</a>
           </Link>
         </header>
         { children }

@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import Link from "next/link";
 import Navigation from "../components/Navigation";
+import Layout from '../components/Layout'
 import Error from "./_error";
 export default class channel extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { openPodcast: null };
+  }
+
   static async getInitialProps({ query, res }) {
     try {
       let idChannel = query.id;
@@ -39,18 +45,28 @@ export default class channel extends Component {
       return { channel: null, audio_clips: null, statusCode: 503 };
     }
   }
+
+  openPodcast = (event, podcast) => {
+    event.preventDefault();
+    this.setState({
+      openPodcast: podcast
+    });
+  };
+
   render() {
     let defaultBanner = "../static/defaultbanner.png";
     let { channel, audio_clips, statusCode } = this.props;
+    const { openPodcast } = this.state;
     if (statusCode !== 200) {
       return <Error statusCode={statusCode} />;
     }
     return (
-      <div>
+      <Layout title={`Channel: ${channel.title}`} titleHead={channel.title}>
         <header className="banner">
           <Navigation path="/" className="navigation" />
           <h2>{channel.title}</h2>
         </header>
+        {openPodcast && <div>Hay un podcast abierto...</div>}
         <section>
           {audio_clips.map(clip => (
             <Link href={`/podcast?id=${clip.id}`} prefetch key={clip.id}>
@@ -136,7 +152,7 @@ export default class channel extends Component {
             }
           `}
         </style>
-      </div>
+      </Layout>
     );
   }
 }
